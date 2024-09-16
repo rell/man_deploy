@@ -36,14 +36,14 @@ ENV DJANGO_DB_NAME=man_db
 ENV DJANGO_DB_USER=man_user
 ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
 ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
-ENV AWS_PUB_DNS=<update>
+ENV AWS_PUB_DNS=127.0.0.1
 
 WORKDIR /app
 
 RUN git clone https://github.com/rell/man.git .
 
 WORKDIR /app/backend
-RUN pipenv --python python3.12 install --deploy --ignore-pipfile
+RUN pipenv install --deploy --ignore-pipfile
 
 WORKDIR /app/frontend
 RUN npm install && \
