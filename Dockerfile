@@ -4,7 +4,8 @@ RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC \
   apt-get install -y \
   tzdata \
-  python3 \
+  python3.12 \
+  python3.12-distutils \
   python3-pip \
   git \
   gosu \
@@ -25,6 +26,9 @@ RUN apt-get update && \
   python3-gdal && \
   rm -rf /var/lib/apt/lists/*
 
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+
+ENV LANG C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_DB_HOST=db
@@ -33,14 +37,14 @@ ENV DJANGO_DB_NAME=man_db
 ENV DJANGO_DB_USER=man_user
 ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
 ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
-ENV AWS_PUB_DNS=<update>
+ENV AWS_PUB_DNS=localhost
 
 WORKDIR /app
 
 RUN git clone https://github.com/rell/man.git .
 
 WORKDIR /app/backend
-RUN pipenv install --deploy --ignore-pipfile
+RUN pipenv --python python3.12 install --deploy --ignore-pipfile
 
 WORKDIR /app/frontend
 RUN npm install && \
