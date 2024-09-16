@@ -4,8 +4,7 @@ RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC \
   apt-get install -y \
   tzdata \
-  python3.12 \
-  python3.12-distutils \
+  python3 \
   python3-pip \
   git \
   gosu \
@@ -16,17 +15,17 @@ RUN apt-get update && \
   python3-dev \
   curl \
   gnupg \
-  software-properties-common \
   nodejs \
   npm \
-  pipenv \
   nginx \
   openssh-client \
   gdal-bin \
   python3-gdal && \
   rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+RUN python3 -m pip install --upgrade pip setuptools
+RUN python3 -m pip install pipenv
 
 ENV LANG C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -37,7 +36,7 @@ ENV DJANGO_DB_NAME=man_db
 ENV DJANGO_DB_USER=man_user
 ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
 ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
-ENV AWS_PUB_DNS=localhost
+ENV AWS_PUB_DNS=<update>
 
 WORKDIR /app
 
