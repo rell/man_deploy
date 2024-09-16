@@ -40,8 +40,7 @@ WORKDIR /app
 RUN git clone https://github.com/rell/man.git .
 
 WORKDIR /app/backend
-RUN pipenv install --deploy --ignore-pipfile && \
-  pipenv install gunicorn
+RUN pipenv install --deploy --ignore-pipfile
 
 WORKDIR /app/frontend
 RUN npm install && \
