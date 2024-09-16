@@ -4,6 +4,7 @@ Note before starting the following EC2 Security policy needs to be updated in or
 
 Within the AWS EC2 Instance. Open the following ports within AWS EC2 Security Groups. 80 (HTTP), 443 (HTTPS, once implemented), 8000 (Django), 3000 (React)
 <br>
+<br>
 Inbound Rules:
   -  Type: HTTP, Protocol: TCP, Port: 80, Source: 0.0.0.0/0
   -  Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0
