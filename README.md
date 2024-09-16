@@ -24,6 +24,6 @@ Next, update https://github.com/rell/man/blob/main/frontend/src/config.ts and ng
 
 Next run the Dockerfile.
 ```bash
-docker build -t man-app
+docker build -t man-app .
 docker run -d -p 8000:8000 -p 3000:3000 man-app
 ```
