@@ -7,7 +7,7 @@ Within the AWS EC2 Instance. Open the following ports within AWS EC2 Security Gr
 <br>
 Inbound Rules:
   -  Type: HTTP, Protocol: TCP, Port: 80, Source: 0.0.0.0/0
-  -  Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0
+  -  Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0 (Not currently needed)
   -  Type: Custom TCP, Protocol: TCP, Port: 8000, Source: 0.0.0.0/0
   -  Type: Custom TCP, Protocol: TCP, Port: 3000, Source: 0.0.0.0/0
 
