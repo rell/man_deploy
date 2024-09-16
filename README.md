@@ -20,4 +20,8 @@ sudo systemctl enable docker
 
 Next, update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf to reflect the current aws ec2 instance - public ipv4 dns.
 
-Next run dockerfile.
+Next run the Dockerfile.
+```bash
+docker build -t man-app
+docker run -d -p 8000:8000 -p 3000:3000 man-app
+```
