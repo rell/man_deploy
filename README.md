@@ -20,7 +20,7 @@ sudo systemctl enable docker
 
 ```
 
-Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike> (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
+Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike>  (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
 
 Next run the Dockerfile.
 ```bash
