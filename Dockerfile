@@ -37,6 +37,8 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
   
 RUN python3.12 -m pip install --upgrade pip setuptools pipenv
+RUN groupadd -r nginx && useradd -r -g nginx nginx
+
  
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -68,5 +70,3 @@ EXPOSE 8000
 EXPOSE 3000
  
 COPY nginx.conf /etc/nginx/nginx.conf
- 
-CMD ["bash", "-c", "cd /app/backend && pipenv run python manage.py populate && pipenv run gunicorn -b 0.0.0.0:8000 maritimeapp.wsgi:application & cd /app/frontend && npm start & nginx -g 'daemon off;'"]
