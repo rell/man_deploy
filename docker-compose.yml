@@ -16,7 +16,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+<<<<<<< HEAD
     command: bash -c "cd /app/backend && pipenv run gunicorn -b 0.0.0.0:8000 mandatabase.wsgi:application"
+=======
+    command: bash -c "cd /app/backend && pipenv run python manage.py populate && pipenv run gunicorn -b 0.0.0.0:8000 mandatabase.wsgi:application"
+>>>>>>> e9515c0 (changes)
     environment:
       DJANGO_DB_HOST: db
       DJANGO_DB_PORT: 5432
