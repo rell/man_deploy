@@ -72,10 +72,3 @@ EXPOSE 8000
 EXPOSE 3001
 
 COPY nginx.conf /etc/nginx/nginx.conf
-<<<<<<< HEAD
-=======
-
-CMD ["bash", "-c", "cd /app/backend && pipenv run python manage.py populate && pipenv run gunicorn -b 0.0.0.0:8000 maritimeapp.wsgi:application & cd /app/frontend && npm start & nginx -g 'daemon off;'"]
-
-COPY nginx.conf /etc/nginx/nginx.conf
->>>>>>> e9515c0 (changes)
