@@ -37,15 +37,8 @@ RUN apt-get update && \
 
 
 RUN python3.12 -m pip install --upgrade pip setuptools pipenv
-<<<<<<< HEAD
 RUN groupadd -r nginx && useradd -r -g nginx nginx
 
- 
-=======
-
-RUN groupadd -r nginx && useradd -r -g nginx nginx
-
->>>>>>> e9515c0 (changes)
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_DB_HOST=db
