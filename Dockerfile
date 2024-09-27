@@ -1,5 +1,8 @@
 FROM python:3.12
 
+ENV DEBIAN_FRONTEND=noninteractive 
+ENV TZ=Etc/UTC
+
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC \
   apt-get install -y \
@@ -9,6 +12,7 @@ RUN apt-get update && \
   gosu \
   postgresql-client \
   postgis \
+  postgresql-15-postgis-3 \
   libpq-dev \
   curl \
   gnupg \
@@ -56,8 +60,14 @@ WORKDIR /app
 RUN git clone https://github.com/rell/man.git .
 
 WORKDIR /app/backend
+
+RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
+  && chmod +x /usr/local/bin/wait-for-it.sh
+
 COPY config.ini /app/backend/
 RUN pipenv install --deploy --ignore-pipfile
+
+ENV REACT_APP_API_URL=http://localhost/api/
 
 WORKDIR /app/frontend
 RUN npm install && \
