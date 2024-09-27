@@ -14,6 +14,7 @@ docker system prune -a -f
 docker network prune -a -f
 
 docker builder prune -a -f
-
-docker-compose up --build
 echo "Docker cleanup completed."
+echo "Building docker containers."
+docker-compose up --build
+echo "Completed."
