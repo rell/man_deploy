@@ -52,7 +52,6 @@ ENV DJANGO_DB_USER=man_user
 ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
 ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
 # ENV AWS_PUB_DNS=36.172.116.118
-
 ENV AWS_PUB_DNS=localhost
 
 WORKDIR /app
@@ -66,8 +65,6 @@ RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vish
 
 COPY config.ini /app/backend/
 RUN pipenv install --deploy --ignore-pipfile
-
-ENV REACT_APP_API_URL=http://localhost/api/
 
 WORKDIR /app/frontend
 COPY config.ts /app/frontend/src/
