@@ -20,7 +20,7 @@ services:
       pipenv run python manage.py makemigrations maritimeapp &&
       pipenv run python manage.py migrate &&
       pipenv run python manage.py populate &&
-      pipenv run gunicorn -b 0.0.0.0:8000 mandatabase.wsgi:application"
+      pipenv run gunicorn -b 0.0.0.0:8000 --limit-request-line 0 mandatabase.wsgi:application"
     environment:
       DJANGO_DB_HOST: db
       DJANGO_DB_PORT: 5432
@@ -43,7 +43,7 @@ services:
     depends_on:
       - django
     ports:
-      - "3001:3000"
+      - "3000:3000"
     networks:
       - app-network
 

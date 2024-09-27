@@ -1,4 +1,4 @@
-### Deployment Steps.
+### Deployment Steps
 
 Note before starting the following EC2 Security policy needs to be updated in order for access to be allowed within react and django ports.
 
@@ -6,12 +6,14 @@ Within the AWS EC2 Instance. Open the following ports within AWS EC2 Security Gr
 <br>
 <br>
 Inbound Rules:
-  -  Type: HTTP, Protocol: TCP, Port: 80, Source: 0.0.0.0/0
-  -  Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0 (Not currently needed)
-  -  Type: Custom TCP, Protocol: TCP, Port: 8000, Source: 0.0.0.0/0
-  -  Type: Custom TCP, Protocol: TCP, Port: 3000, Source: 0.0.0.0/0
 
-After this is updated docker will need to be installed on the server in order to use the dockerfile. after downloading docker onto the server through a preferred method. start and enable docker. 
+- Type: HTTP, Protocol: TCP, Port: 80, Source: 0.0.0.0/0
+- Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0 (Not currently needed)
+- Type: Custom TCP, Protocol: TCP, Port: 8000, Source: 0.0.0.0/0
+- Type: Custom TCP, Protocol: TCP, Port: 3000, Source: 0.0.0.0/0
+
+After this is updated docker will need to be installed on the server in order to use the dockerfile. after downloading docker onto the server through a preferred method. start and enable docker.
+
 ```bash
 
 # after docker has been installed
@@ -20,10 +22,15 @@ sudo systemctl enable docker
 
 ```
 
-Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike>  (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
+Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike> (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
 
 Next run the Dockerfile.
+
 ```bash
-docker build -t man-app .
-docker run -d -p 8000:8000 -p 3000:3000 man-app
+./restart.sh # will remove all current docker instances and run docker with complete build
+
 ```
+
+### Post configuration
+
+After the dockerfile has successfully run. NGINX can be configured within the server to allow for the frontend to be served from the AWS EC2 url and the backend to be served from the AWS EC2 url/api/ instead of using ports.

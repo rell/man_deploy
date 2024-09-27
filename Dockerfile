@@ -70,6 +70,7 @@ RUN pipenv install --deploy --ignore-pipfile
 ENV REACT_APP_API_URL=http://localhost/api/
 
 WORKDIR /app/frontend
+COPY config.ts /app/frontend/src/
 RUN npm install && \
   npm run build
 
