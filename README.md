@@ -35,6 +35,7 @@ Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.t
 Next run the setup script.
 
 ```bash
+# Depending on privileges script may need to be modified by placing sudo infront of each docker/docker-compse command
 ./restart.sh # will remove all current docker instances and run docker with complete build
 
 ```
