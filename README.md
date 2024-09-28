@@ -43,4 +43,4 @@ Next run the Dockerfile.
 
 After the dockerfile has successfully run. NGINX can be configured within the server to allow for the frontend to be served from the AWS EC2 url and the backend to be served from the AWS EC2 url/api/ instead of using ports.
 
-#TODO: Make Apache Frontend Configuration
+#TODO: Make Apache Local Configuration
