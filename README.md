@@ -22,6 +22,14 @@ sudo systemctl enable docker
 
 ```
 
+
+Next Install docker-compose:
+
+```bash
+curl -SL https://github.com/docker/compose/releases/download/v2.29.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
 Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike> (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
 
 Next run the Dockerfile.
@@ -34,3 +42,5 @@ Next run the Dockerfile.
 ### Post configuration
 
 After the dockerfile has successfully run. NGINX can be configured within the server to allow for the frontend to be served from the AWS EC2 url and the backend to be served from the AWS EC2 url/api/ instead of using ports.
+
+#TODO: Make Apache Frontend Configuration
