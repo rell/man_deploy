@@ -32,7 +32,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike> (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
 
-Next run the Dockerfile.
+Next run the setup script.
 
 ```bash
 ./restart.sh # will remove all current docker instances and run docker with complete build
