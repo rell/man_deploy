@@ -30,7 +30,22 @@ curl -SL https://github.com/docker/compose/releases/download/v2.29.6/docker-comp
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
-Next, <strike>update https://github.com/rell/man/blob/main/frontend/src/config.ts and nginx.conf </strike> (update environment variable `AWS_PUB_DNS` in Dockerfile) to reflect the current aws ec2 instance - public ipv4 dns.
+Next, update the following variables with the correct deployment IPv4 DNS
+
+1.) https://github.com/rell/man_deploy/blob/main/config.ts
+
+```bash
+# change  API_BASE_URL
+# Example: const API_BASE_URL = "http://10.0.0.1:8000";
+const API_BASE_URL = "http://<your IPv4 DNS IP or localhost >:8000";
+```
+2.) https://github.com/rell/man_deploy/blob/main/Dockerfile
+
+```bash
+# remove the following characters "<" ,">"
+#  Example: ENV AWS_PUB_DNS=10.0.0.1
+ENV AWS_PUB_DNS=<your IPv4 DNS IP>
+````
 
 Next run the setup script.
 
