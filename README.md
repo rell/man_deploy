@@ -37,7 +37,7 @@ Next, update the following variables with the correct deployment IPv4 DNS
 ```bash
 # change  API_BASE_URL
 # Example: const API_BASE_URL = "http://10.0.0.1:8000";
-const API_BASE_URL = "http://<your IPv4 DNS IP or localhost >:8000";
+const API_BASE_URL = "http://<your IPv4 DNS IP>:8000";
 ```
 2.) https://github.com/rell/man_deploy/blob/main/Dockerfile
 
