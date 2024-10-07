@@ -36,6 +36,8 @@ RUN apt-get update && \
   libexpat1-dev \
   liblzma-dev \
   libffi-dev \
+  tar \
+  clean \
   wget && \
   rm -rf /var/lib/apt/lists/*
 
