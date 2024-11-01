@@ -37,8 +37,9 @@ RUN apt-get update && \
   liblzma-dev \
   libffi-dev \
   tar \
-  clean \
+  cron \
   wget && \
+  apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
 
@@ -57,6 +58,16 @@ ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
 ENV AWS_PUB_DNS=localhost
 
 WORKDIR /app
+
+COPY cron-scripts/update_git /app/scripts/update_git.sh
+COPY cron-scripts/update_and_pop /app/scripts/update_and_pop.sh
+COPY cron-scripts/man_crontab /etc/cron.d/man_crontab
+COPY entrypoint /usr/local/bin/entrypoint.sh
+RUN chmod +x /app/scripts/update_git.sh
+RUN chmod +x /app/scripts/update_and_pop.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod 0644 /etc/cron.d/man_crontab
+RUN crontab /etc/cron.d/man_crontab
 
 RUN git clone https://github.com/rell/man.git .
 
@@ -79,6 +90,7 @@ RUN chmod +x /usr/local/bin/setup_postgres.sh && \
   /usr/local/bin/setup_postgres.sh
 
 EXPOSE 8000
-EXPOSE 3001
+EXPOSE 3000
 
 COPY nginx.conf /etc/nginx/nginx.conf
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
