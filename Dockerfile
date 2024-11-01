@@ -59,16 +59,6 @@ ENV AWS_PUB_DNS=128.183.160.250
 
 WORKDIR /app
 
-COPY cron-scripts/update_git /app/scripts/update_git.sh
-COPY cron-scripts/update_and_pop /app/scripts/update_and_pop.sh
-COPY cron-scripts/man_crontab /etc/cron.d/man_crontab
-COPY entrypoint /usr/local/bin/entrypoint.sh
-RUN chmod +x /app/scripts/update_git.sh
-RUN chmod +x /app/scripts/update_and_pop.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-RUN chmod 0644 /etc/cron.d/man_crontab
-RUN crontab /etc/cron.d/man_crontab
-
 RUN git clone https://github.com/rell/man.git .
 
 WORKDIR /app/backend
@@ -93,4 +83,15 @@ EXPOSE 8000
 EXPOSE 3000
 
 COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY cron-scripts/update_git /app/scripts/update_git.sh
+COPY cron-scripts/update_and_pop /app/scripts/update_and_pop.sh
+COPY cron-scripts/man_crontab /etc/cron.d/man_crontab
+COPY entrypoint /usr/local/bin/entrypoint.sh
+RUN chmod +x /app/scripts/update_git.sh
+RUN chmod +x /app/scripts/update_and_pop.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod 0644 /etc/cron.d/man_crontab
+RUN crontab /etc/cron.d/man_crontab
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
