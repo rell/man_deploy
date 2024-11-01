@@ -1,0 +1,5 @@
+# FREQ: EVERY 30 MINS 
+*/30 * * * * /app/scripts/update_git.sh >> /var/log/update_git.log 2>&1
+
+# FREQ: SUNDAY MID-NIGHT
+0 0 * * 0 /app/scripts/update_and_pop.sh >> /var/log/update_and_pop.log 2>&1

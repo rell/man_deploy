@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd /app
+
+# Pull the latest changes from the Git repository
+echo "Running git pull..."
+if git pull | grep -q 'Already up to date.'; then
+  :
+else
+  cd /app/backend
+  pipenv install --deploy --ignore-pipfile
+  pipenv run python manage.py migrate
+  pipenv run python manage.py collectstatic --noinput
+  pkill -f gunicorn
+  pipenv run gunicorn -b 0.0.0.0:8000 --limit-request-line 0 mandatabase.wsgi:application &
+
+  cd /app/frontend
+  npm install
+  npm run build
+  pkill -f "npm start"
+  npm start &
+  /app/scripts/update_and_pop.sh
+fi

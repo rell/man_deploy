@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd /app/backend
+
+/usr/local/bin/wait-for-it.sh db:5432 -t 15
+
+pipenv run python manage.py makemigrations maritimeapp
+pipenv run python manage.py migrate
+
+pipenv run python manage.py populate
+
+pipenv run gunicorn -b 0.0.0.0:8000 --limit-request-line 0 mandatabase.wsgi:application
