@@ -56,6 +56,7 @@ ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYe
 ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
 # ENV AWS_PUB_DNS=36.172.116.118
 ENV AWS_PUB_DNS=128.183.160.250
+# ENV AWS_PUB_DNS=localhost
 
 WORKDIR /app
 
@@ -94,4 +95,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN chmod 0644 /etc/cron.d/man_crontab
 RUN crontab /etc/cron.d/man_crontab
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
