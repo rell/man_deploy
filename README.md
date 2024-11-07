@@ -9,8 +9,7 @@ Inbound Rules:
 
 - Type: HTTP, Protocol: TCP, Port: 80, Source: 0.0.0.0/0
 - Type: HTTPS, Protocol:TCP, Port: 443, Source: 0.0.0.0/0 (Not currently needed)
-- Type: Custom TCP, Protocol: TCP, Port: 8000, Source: 0.0.0.0/0
-- Type: Custom TCP, Protocol: TCP, Port: 3000, Source: 0.0.0.0/0
+- Type: Custom TCP, Protocol: TCP, Port: 8080, Source: 127.0.0.1/0 # NGINX
 
 After this is updated docker will need to be installed on the server in order to use the dockerfile. after downloading docker onto the server through a preferred method. start and enable docker.
 
