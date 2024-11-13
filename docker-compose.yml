@@ -1,5 +1,3 @@
----
-
 services:
 
   db:
@@ -13,13 +11,14 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
+  
+
 
   django:
     container_name: django
     build:
       context: .
       dockerfile: Dockerfile
-
     command: >
       bash -c "cd /app/backend && 
       /usr/local/bin/wait-for-it.sh db:5432 -t 15 -- 
@@ -59,11 +58,28 @@ services:
     networks:
       - app-network
 
+  cron:
+    image: busybox:latest
+    volumes:
+      - ./cron-scripts/man_crontab:/etc/cron.d/man_crontab
+      - ./cron-scripts/:/app/scripts
+    command: >
+      bash -c "cd /app/scripts &&
+      service cron start &&
+      tail -f /dev/null"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - django
+      - frontend
+    networks:
+      - app-network     
+
   nginx:
     container_name: nginx
     image: nginx:latest
     volumes:
-#      - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
