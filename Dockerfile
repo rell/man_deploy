@@ -43,6 +43,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND=dialog
+RUN npm install -g pnpm
 
 RUN python3.12 -m pip install --upgrade pip setuptools pipenv
 RUN groupadd -r nginx && useradd -r -g nginx nginx
@@ -73,8 +74,7 @@ RUN pipenv install --deploy --ignore-pipfile
 
 WORKDIR /app/frontend
 COPY config.ts /app/frontend/src/
-RUN npm install && \
-  npm run build
+RUN   pnpm i 
 
 WORKDIR /app
 COPY setup_postgres.sh /usr/local/bin/

@@ -48,7 +48,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "cd /app/frontend && npm start"
+    command: bash -c "cd /app/frontend && pnpm start"
     depends_on:
       - django
     volumes:
