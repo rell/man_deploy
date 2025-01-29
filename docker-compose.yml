@@ -3,16 +3,15 @@ services:
   db:
     container_name: db
     image: postgis/postgis:latest
+    # command: bash -c "pg_ctl -D /var/lib/postgresql/data -l logfile start"
     environment:
       POSTGRES_DB: man_db
       POSTGRES_USER: man_user
-      POSTGRES_PASSWORD: Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
+      POSTGRES_PASSWORD: e3KR3B*AQqTMa4suUGVnbyyx-7s@Bex!vGF2zh2xkN6hiKXFrNCH4UeFpTVK8BDdp-_Qv48aj@MP7UQ!M.BUi*-*49r-vNyNrBwH
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
-  
-
 
   django:
     container_name: django
@@ -31,15 +30,12 @@ services:
       DJANGO_DB_PORT: 5432
       DJANGO_DB_NAME: man_db
       DJANGO_DB_USER: man_user
-      DJANGO_DB_PASS: Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
-      #DJANGO_SECRET_KEY: 64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
-      DJANGO_SECRET_KEY: 64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$$ed+y*r2l(9v--@s
+      DJANGO_DB_PASS: e3KR3B*AQqTMa4suUGVnbyyx-7s@Bex!vGF2zh2xkN6hiKXFrNCH4UeFpTVK8BDdp-_Qv48aj@MP7UQ!M.BUi*-*49r-vNyNrBwH
+      DJANGO_SECRET_KEY: 5hi_*o@$4pf@f078gzwxx3erernbh0fbw=_am9xf=5-88o_w(5
     depends_on:
       - db
     volumes:
       - ./django/mandatabase/urls.py:/app/backend/mandatabase/urls.py
-#    ports:
-#      - "8000:8000"
     networks:
       - app-network
 
@@ -48,33 +44,31 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "cd /app/frontend && pnpm start"
+    command: bash -c "cd /app/frontend && pnpm setup && pnpm install -g serve && serve -s build"
     depends_on:
       - django
     volumes:
       - ./config.ts:/app/frontend/src/config.ts
-#    ports:
-#      - "3000:3000"
     networks:
       - app-network
 
-  cron:
-    image: busybox:latest
-    volumes:
-      - ./cron-scripts/man_crontab:/etc/cron.d/man_crontab
-      - ./cron-scripts/:/app/scripts
-    command: >
-      bash -c "cd /app/scripts &&
-      service cron start &&
-      tail -f /dev/null"
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - django
-      - frontend
-    networks:
-      - app-network     
+  # cron:
+  #   image: busybox:latest
+  #   volumes:
+  #     - ./cron-scripts/man_crontab:/etc/cron.d/man_crontab
+  #     - ./cron-scripts/:/app/scripts
+  #   command: >
+  #     bash -c "cd /app/scripts &&
+  #     service cron start &&
+  #     tail -f /dev/null"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - django
+  #     - frontend
+  #   networks:
+  #     - app-network     
 
   nginx:
     container_name: nginx
@@ -86,6 +80,7 @@ services:
       - "8080:80"
     depends_on:
       - frontend
+      - django
     networks:
       - app-network
 

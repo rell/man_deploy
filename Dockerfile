@@ -2,6 +2,7 @@ FROM python:3.12
 
 ENV DEBIAN_FRONTEND=noninteractive 
 ENV TZ=Etc/UTC
+ENV SHELL=/bin/bash
 
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC \
@@ -44,6 +45,12 @@ RUN apt-get update && \
 
 ENV DEBIAN_FRONTEND=dialog
 RUN npm install -g pnpm
+<<<<<<< HEAD
+=======
+
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+>>>>>>> 8763185 (changes)
 
 RUN python3.12 -m pip install --upgrade pip setuptools pipenv
 RUN groupadd -r nginx && useradd -r -g nginx nginx
@@ -54,15 +61,15 @@ ENV DJANGO_DB_HOST=db
 ENV DJANGO_DB_PORT=5432
 ENV DJANGO_DB_NAME=man_db
 ENV DJANGO_DB_USER=man_user
-ENV DJANGO_DB_PASS=Y8ksKX2uqdHEepzW8s9*vX@LbANPVbrQgfgzpRgP@dJATFKCfQ6de@n3g6GYeL-yrh3Mp!CKa-hQdUM
-ENV DJANGO_SECRET_KEY=64*39&)axn)l1ik_90h=yz(8#ttn^wo%%y&$ed+y*r2l(9v--@s
+ENV DJANGO_DB_PASS=e3KR3B*AQqTMa4suUGVnbyyx-7s@Bex!vGF2zh2xkN6hiKXFrNCH4UeFpTVK8BDdp-_Qv48aj@MP7UQ!M.BUi*-*49r-vNyNrBwH
+ENV DJANGO_SECRET_KEY=5hi_*o@$4pf@f078gzwxx3erernbh0fbw=_am9xf=5-88o_w(5
 # ENV AWS_PUB_DNS=36.172.116.118
-# ENV AWS_PUB_DNS=128.183.160.250
-ENV AWS_PUB_DNS=localhost
+ENV AWS_PUB_DNS=128.183.160.250
+# ENV AWS_PUB_DNS=localhost
 
 WORKDIR /app
 
-RUN git clone https://github.com/rell/man.git .
+RUN git clone https://github.com/rell/aeronet_man.git .
 
 WORKDIR /app/backend
 
@@ -73,7 +80,6 @@ COPY config.ini /app/backend/
 RUN pipenv install --deploy --ignore-pipfile
 
 WORKDIR /app/frontend
-COPY config.ts /app/frontend/src/
 RUN   pnpm i 
 
 WORKDIR /app
