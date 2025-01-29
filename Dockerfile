@@ -45,12 +45,9 @@ RUN apt-get update && \
 
 ENV DEBIAN_FRONTEND=dialog
 RUN npm install -g pnpm
-<<<<<<< HEAD
-=======
 
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH=$PNPM_HOME:$PATH
->>>>>>> 8763185 (changes)
 
 RUN python3.12 -m pip install --upgrade pip setuptools pipenv
 RUN groupadd -r nginx && useradd -r -g nginx nginx
