@@ -48,7 +48,6 @@ services:
     depends_on:
       - django
     volumes:
-      - ./config.ts:/app/frontend/src/config.ts
     networks:
       - app-network
 
