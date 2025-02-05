@@ -64,29 +64,36 @@ ENV DJANGO_SECRET_KEY=5hi_*o@$4pf@f078gzwxx3erernbh0fbw=_am9xf=5-88o_w(5
 ENV AWS_PUB_DNS=128.183.160.250
 # ENV AWS_PUB_DNS=localhost
 
+# START-DIR
 WORKDIR /app
-
 RUN git clone https://github.com/rell/aeronet_man.git .
 
+# BACK-END
 WORKDIR /app/backend
-
 RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
   && chmod +x /usr/local/bin/wait-for-it.sh
-
 COPY config.ini /app/backend/
 RUN pipenv install --deploy --ignore-pipfile
+RUN mkdir -p /app/backend/log/gunicorn/accesslog
+RUN mkdir -p /app/backend/log/gunicorn/errorlog
+RUN mkdir -p /app/backend/log/django/
 
+# FRONT-END
 WORKDIR /app/frontend
-RUN   pnpm i 
+RUN   pnpm i
 
+# POSTGRESQL
 WORKDIR /app
 COPY setup_postgres.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/setup_postgres.sh && \
   /usr/local/bin/setup_postgres.sh
 
+# PORTS
 EXPOSE 8000
 EXPOSE 3000
 
+
+# SCRIPTS (INACTIVE)
 COPY cron-scripts/update_git /app/scripts/update_git.sh
 COPY cron-scripts/update_and_pop /app/scripts/update_and_pop.sh
 COPY cron-scripts/man_crontab /etc/cron.d/man_crontab
