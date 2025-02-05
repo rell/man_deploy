@@ -74,8 +74,7 @@ RUN curl -o /usr/local/bin/wait-for-it.sh https://raw.githubusercontent.com/vish
   && chmod +x /usr/local/bin/wait-for-it.sh
 COPY config.ini /app/backend/
 RUN pipenv install --deploy --ignore-pipfile
-RUN mkdir -p /app/backend/log/gunicorn/accesslog
-RUN mkdir -p /app/backend/log/gunicorn/errorlog
+RUN mkdir -p /app/backend/log/gunicorn/
 RUN mkdir -p /app/backend/log/django/
 
 # FRONT-END
