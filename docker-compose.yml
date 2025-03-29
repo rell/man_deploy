@@ -43,7 +43,7 @@ services:
       - app-network
 
   frontend:
-    container_name: man_frontend
+    container_name: frontend
     build:
       context: .
       dockerfile: Dockerfile
@@ -80,7 +80,7 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - man_frontend 
+      - frontend 
       - django
     networks:
       - app-network
