@@ -24,7 +24,7 @@ services:
       pipenv run python manage.py makemigrations maritimeapp &&
       pipenv run python manage.py migrate &&
       pipenv run python manage.py import_dd &&
-      pipenv run python manage.py populate &&
+      pipenv run python manage.py psql_add &&
       pipenv run python manage.py update_dates &&
       pipenv run gunicorn --limit-request-line 0 -c gunicorn.conf.py mandatabase.wsgi:application"
     environment:
