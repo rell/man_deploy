@@ -1,7 +1,7 @@
 services:
 
   db:
-    container_name: db
+    container_name: man-db
     image: postgis/postgis:latest
     # command: bash -c "pg_ctl -D /var/lib/postgresql/data -l logfile start"
     environment:
@@ -14,7 +14,7 @@ services:
       - app-network
 
   django:
-    container_name: django
+    container_name: man-django
     build:
       context: .
       dockerfile: Dockerfile
@@ -43,7 +43,7 @@ services:
       - app-network
 
   frontend:
-    container_name: frontend
+    container_name: man-frontend
     build:
       context: .
       dockerfile: Dockerfile
@@ -72,7 +72,7 @@ services:
   #     - app-network     
 
   nginx:
-    container_name: nginx
+    container_name: man-nginx
     image: nginx:latest
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
